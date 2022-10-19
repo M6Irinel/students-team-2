@@ -14,7 +14,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+
+        return view('students.index', compact('students'));
     }
 
     /**
@@ -24,7 +26,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -35,7 +37,20 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'name' => '',
+            'surname' => '',
+            'fiscal_code' => '',
+            'email' => '',
+            'date_of_birth' => '',
+            'enrolment_date' => '',
+            'registration_number' => '',
+            'telephone_number' => ''
+        ]);
+
+        Student::create($validate);
+
+        return redirect()->route('students.index');
     }
 
     /**
@@ -57,7 +72,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -69,7 +84,20 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $validate = $request->validate([
+            'name' => '',
+            'surname' => '',
+            'fiscal_code' => '',
+            'email' => '',
+            'date_of_birth' => '',
+            'enrolment_date' => '',
+            'registration_number' => '',
+            'telephone_number' => ''
+        ]);
+
+        $student->update($validate);
+
+        return redirect()->route('students.index');
     }
 
     /**
@@ -80,6 +108,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return redirect()->route('students.index');
     }
 }
