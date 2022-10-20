@@ -54,7 +54,7 @@
                     <label for="date_of_birth">Date of birth</label>
                     <input type="text" name="date_of_birth"
                         class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth"
-                        placeholder="date_of_birth = yyy-mm-dd" value="{{ old('date_of_birth') }}">
+                        placeholder="date_of_birth = yyyy-mm-dd" value="{{ old('date_of_birth') }}">
                     @error('date_of_birth')
                         <p class="invalid-feedback">{{ $message }}</p>
                     @enderror
@@ -64,7 +64,7 @@
                     <label for="enrolment_date">Enrolment date</label>
                     <input type="text" name="enrolment_date"
                         class="form-control @error('enrolment_date') is-invalid @enderror" id="enrolment_date"
-                        placeholder="enrolment_date = yyy-mm-dd" value="{{ old('enrolment_date') }}">
+                        placeholder="enrolment_date = yyyy-mm-dd" value="{{ old('enrolment_date') }}">
                     @error('enrolment_date')
                         <p class="invalid-feedback">{{ $message }}</p>
                     @enderror
