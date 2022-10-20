@@ -21,7 +21,7 @@
                             <th class="bg-gray-2-H transition-bg-color duration-3" scope="col">Enrolment date</th>
                             <th class="bg-gray-2-H transition-bg-color duration-3" scope="col">Email</th>
                             <th class="bg-gray-2-H transition-bg-color duration-3" scope="col">Telephone number</th>
-                            <th class="bg-gray-2-H transition-bg-color duration-3" scope="col" colspan="2">Buttons</th>
+                            <th class="bg-gray-2-H transition-bg-color duration-3" scope="col" colspan="3">Buttons</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +44,9 @@
                                         @method('DELETE')
                                         <input type="submit" class="block btn btn-danger" href="{{route('admin.students.destroy', $student)}}" value="DELETE"/>
                                     </form>
+                                </td>
+                                <td class="bg-gray-2-H transition-bg-color duration-3">
+                                    <a class="block btn btn-success" href="{{route('admin.students.show', $student)}}">SHOW</a>
                                 </td>
                             </tr>
                         @endforeach
