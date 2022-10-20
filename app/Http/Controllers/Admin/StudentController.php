@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Student;
 use Illuminate\Http\Request;
+
+use App\Student;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -17,9 +18,7 @@ class StudentController extends Controller
     public function index()
     {
         // $students = Student::limit(20)->get();
-
         $students = Student::limit(20)->orderBy('id', 'desc')->get();
-
 
         return view('admin.students.index', compact('students'));
     }
@@ -42,12 +41,11 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        // La validazione la devi fare nel folder config dentro al file methods, il campo e gia fatto
-        // ... basta inserire i valori per la validazione
-        // ... facendo in questo modo scrivi solo una volta la validazione
-        Student::create(config('methods.validate')($request));
+        $validate_create = config('methods.validate_for_created')($request);
 
-        return redirect()->route('admin.students.index');
+        $student = Student::create($validate_create);
+
+        return redirect()->route('admin.students.show', $student);
     }
 
     /**
@@ -81,37 +79,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        // La validazione la devi fare nel folder config dentro al file methods, il campo e gia fatto
-        // ... basta inserire i valori per la validazione
-        // ... facendo in questo modo scrivi solo una volta la validazione
+        $rule_unique_ignore = Rule::unique('students')->ignore($student->id);
 
-            $rule = Rule::unique('students')->ignore($student->id);
-            $params = $request->validate([
-                'name' => 'required',
-                'surname' => 'required',
-                'fiscal_code' => [
-                    'required',
-                    $rule,
-                ],
-                'email' =>
-                [
-                    'required', 'email',
-                    $rule,
-                ],
-                'date_of_birth' => 'required|date',
-                'enrolment_date' => 'required|date',
-                'registration_number' => [
-                    'required',
-                    $rule,
-                ],
-                'telephone_number' => [
-                    $rule,
-                ],
-            ]);
+        $validate_update = config('methods.validate_for_update')($request, $rule_unique_ignore);
 
-        $student->update($params);
+        $student->update($validate_update);
 
-        return redirect()->route('admin.students.index');
+        return redirect()->route('admin.students.show', $student);
     }
 
     /**
