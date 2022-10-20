@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Student;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         // $students = Student::limit(20)->get();
-        
+
         $students = Student::limit(20)->orderBy('id', 'desc')->get();
 
 
@@ -57,7 +58,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        // ??????
+        return view('admin.students.show', compact('student'));
     }
 
     /**
@@ -83,7 +84,32 @@ class StudentController extends Controller
         // La validazione la devi fare nel folder config dentro al file methods, il campo e gia fatto
         // ... basta inserire i valori per la validazione
         // ... facendo in questo modo scrivi solo una volta la validazione
-        $student->update(config('methods.validate')($request));
+
+            $rule = Rule::unique('students')->ignore($student->id);
+            $params = $request->validate([
+                'name' => 'required',
+                'surname' => 'required',
+                'fiscal_code' => [
+                    'required',
+                    $rule,
+                ],
+                'email' =>
+                [
+                    'required', 'email',
+                    $rule,
+                ],
+                'date_of_birth' => 'required|date',
+                'enrolment_date' => 'required|date',
+                'registration_number' => [
+                    'required',
+                    $rule,
+                ],
+                'telephone_number' => [
+                    $rule,
+                ],
+            ]);
+
+        $student->update($params);
 
         return redirect()->route('admin.students.index');
     }

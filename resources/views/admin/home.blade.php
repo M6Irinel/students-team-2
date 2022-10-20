@@ -16,6 +16,9 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <div>
+                    <a href="{{route('admin.students.index')}}">Lista studenti</a>
+                </div>
             </div>
         </div>
     </div>
