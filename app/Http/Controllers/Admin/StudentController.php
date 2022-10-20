@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Student;
 use Illuminate\Http\Request;
 
@@ -15,10 +16,11 @@ class StudentController extends Controller
     public function index()
     {
         // $students = Student::limit(20)->get();
+        
         $students = Student::limit(20)->orderBy('id', 'desc')->get();
 
 
-        return view('students.index', compact('students'));
+        return view('admin.students.index', compact('students'));
     }
 
     /**
@@ -28,7 +30,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        return view('admin.students.create');
     }
 
     /**
@@ -44,7 +46,7 @@ class StudentController extends Controller
         // ... facendo in questo modo scrivi solo una volta la validazione
         Student::create(config('methods.validate')($request));
 
-        return redirect()->route('students.index');
+        return redirect()->route('admin.students.index');
     }
 
     /**
@@ -66,7 +68,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('students.edit', compact('student'));
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
@@ -83,7 +85,7 @@ class StudentController extends Controller
         // ... facendo in questo modo scrivi solo una volta la validazione
         $student->update(config('methods.validate')($request));
 
-        return redirect()->route('students.index');
+        return redirect()->route('admin.students.index');
     }
 
     /**
@@ -96,6 +98,6 @@ class StudentController extends Controller
     {
         $student->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->route('admin.students.index');
     }
 }
