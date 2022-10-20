@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\Student;
-use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -14,7 +17,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        // $students = Student::limit(20)->get();
+        $students = Student::limit(20)->orderBy('id', 'desc')->get();
+
+        return view('admin.students.index', compact('students'));
     }
 
     /**
@@ -24,7 +30,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.students.create');
     }
 
     /**
@@ -35,7 +41,11 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate_create = config('methods.validate_for_created')($request);
+
+        $student = Student::create($validate_create);
+
+        return redirect()->route('admin.students.show', $student);
     }
 
     /**
@@ -46,7 +56,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return view('admin.students.show', compact('student'));
     }
 
     /**
@@ -57,7 +67,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
@@ -69,7 +79,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $rule_unique_ignore = Rule::unique('students')->ignore($student->id);
+
+        $validate_update = config('methods.validate_for_update')($request, $rule_unique_ignore);
+
+        $student->update($validate_update);
+
+        return redirect()->route('admin.students.show', $student);
     }
 
     /**
@@ -80,6 +96,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return redirect()->route('admin.students.index');
     }
 }
