@@ -1,8 +1,8 @@
-@extends('students.layouts.app')
+@extends('admin.students.layouts.app')
 
 
 @section('header')
-    @include('students.partials.header')
+    @include('admin.students.partials.header')
 @endsection
 
 
@@ -36,13 +36,13 @@
                                 <td class="bg-gray-2-H transition-bg-color duration-3">{{ $student->email }}</td>
                                 <td class="bg-gray-2-H transition-bg-color duration-3">{{ $student->telephone_number }}</td>
                                 <td class="bg-gray-2-H transition-bg-color duration-3">
-                                    <a class="block btn btn-secondary" href="{{route('students.edit', $student)}}">EDIT</a>
+                                    <a class="block btn btn-secondary" href="{{route('admin.students.edit', $student)}}">EDIT</a>
                                 </td>
                                 <td class="bg-gray-2-H transition-bg-color duration-3">
-                                    <form action="{{route('students.destroy', $student)}}" method="POST">
+                                    <form action="{{route('admin.students.destroy', $student)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" class="block btn btn-danger" href="{{route('students.destroy', $student)}}" value="DELETE"/>
+                                        <input type="submit" class="block btn btn-danger" href="{{route('admin.students.destroy', $student)}}" value="DELETE"/>
                                     </form>
                                 </td>
                             </tr>
@@ -56,5 +56,5 @@
 
 
 @section('footer')
-    @include('students.partials.footer')
+    @include('admin.students.partials.footer')
 @endsection

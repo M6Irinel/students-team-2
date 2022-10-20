@@ -12,10 +12,10 @@
         </div>
         <div class="flex gap-20 i-center">
             <div>
-                <a class="btn btn-primary" href="{{route('students.index')}}">Students</a>
+                <a class="btn btn-primary" href="{{route('admin.students.index')}}">Students</a>
             </div>
             <div>
-                <a class="btn btn-primary" href="{{route('students.create')}}">ADD NEW STUDENT</a>
+                <a class="btn btn-primary" href="{{route('admin.students.create')}}">ADD NEW STUDENT</a>
             </div>
         </div>
     </div>

@@ -1,15 +1,15 @@
-@extends('students.layouts.app')
+@extends('admin.students.layouts.app')
 
 
 @section('header')
-    @include('students.partials.header')
+    @include('admin.students.partials.header')
 @endsection
 
 
 @section('content')
     <section class="py-4">
         <div class="container">
-            <form action="{{ route('students.store') }}" method="POST">
+            <form action="{{ route('admin.students.store') }}" method="POST">
 
                 @csrf
 
@@ -99,5 +99,5 @@
 
 
 @section('footer')
-    @include('students.partials.footer')
+    @include('admin.students.partials.footer')
 @endsection
