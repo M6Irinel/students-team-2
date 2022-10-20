@@ -14,7 +14,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::limit(20)->get();
+        // $students = Student::limit(20)->get();
+        $students = Student::limit(20)->orderBy('id', 'desc')->get();
+
 
         return view('students.index', compact('students'));
     }
