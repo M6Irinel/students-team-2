@@ -5,7 +5,7 @@
                 Developed by: <strong class="ml-2">TEAM 2</strong>
             </div>
             <ul class="list-style-none flex gap-10">
-                @foreach (config('sviluppatori') as $sviluppatore)
+                @foreach (config('developed') as $sviluppatore)
                     <li class="bg-gray-1-H px-2 py-1 rounded-3 bold scale-3-H traansition-transform duration-2 ease-in-out c-default">{{ $sviluppatore }}</li>
                 @endforeach
             </ul>

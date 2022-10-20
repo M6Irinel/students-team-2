@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::limit(20)->get();
 
         return view('students.index', compact('students'));
     }
@@ -37,18 +37,10 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'name' => '',
-            'surname' => '',
-            'fiscal_code' => '',
-            'email' => '',
-            'date_of_birth' => '',
-            'enrolment_date' => '',
-            'registration_number' => '',
-            'telephone_number' => ''
-        ]);
-
-        Student::create($validate);
+        // La validazione la devi fare nel folder config dentro al file methods, il campo e gia fatto
+        // ... basta inserire i valori per la validazione
+        // ... facendo in questo modo scrivi solo una volta la validazione
+        Student::create(config('methods.validate')($request));
 
         return redirect()->route('students.index');
     }
@@ -61,7 +53,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        // ??????
     }
 
     /**
@@ -84,18 +76,10 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $validate = $request->validate([
-            'name' => '',
-            'surname' => '',
-            'fiscal_code' => '',
-            'email' => '',
-            'date_of_birth' => '',
-            'enrolment_date' => '',
-            'registration_number' => '',
-            'telephone_number' => ''
-        ]);
-
-        $student->update($validate);
+        // La validazione la devi fare nel folder config dentro al file methods, il campo e gia fatto
+        // ... basta inserire i valori per la validazione
+        // ... facendo in questo modo scrivi solo una volta la validazione
+        $student->update(config('methods.validate')($request));
 
         return redirect()->route('students.index');
     }

@@ -15,7 +15,7 @@ class StudentSeeder extends Seeder
 
     public function run(Faker $faker, Factory $factory)
     {
-        for($i=0; $i<20; $i++){
+        for($i=0; $i<50; $i++){
             $nS = new Student();
             $nS->name = $faker->firstName();
             $nS->surname = $faker->lastName();
