@@ -41,7 +41,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $validate_create = config('methods.validate_for_created')($request);
+        $validate_create = Student::validate_for_created($request);
 
         $student = Student::create($validate_create);
 
@@ -81,7 +81,7 @@ class StudentController extends Controller
     {
         $rule_unique_ignore = Rule::unique('students')->ignore($student->id);
 
-        $validate_update = config('methods.validate_for_update')($request, $rule_unique_ignore);
+        $validate_update = Student::validate_for_update($request, $rule_unique_ignore);
 
         $student->update($validate_update);
 

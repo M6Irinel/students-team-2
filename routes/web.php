@@ -14,15 +14,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', 'DepartmentController@show');
-//Route::get('/', 'ControllerHome@index');
-
 Route::get('/', function () {
   return view('welcome');
 });
 
 
 Auth::routes();
+
 
 Route::middleware('auth')
   ->name('admin.')
