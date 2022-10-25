@@ -45,4 +45,8 @@ class Student extends Model
             'telephone_number' => [$rule_unique_ignore],
         ]);
     }
+
+    public function degree() {
+        return $this->belongTo('App\Degree');
+    }
 }
