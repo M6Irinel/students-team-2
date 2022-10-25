@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Degree;
+use App\Department;
 
 class DegreeSeeder extends Seeder
 {
@@ -13,21 +14,19 @@ class DegreeSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        $departments = Department::all()->pluck('id');
 
-        $levelName = ['triennale','magistrale'];
+        for ($i = 0; $i < 20; $i++) {
+            $d = new Degree();
 
-        for ($i = 0; $i < 50; $i++) { 
+            $d->department_id = $faker->randomElement($departments);
+            $d->name = $faker->words(rand(5, 10), true);
+            $d->level = $faker->randomElement(Degree::LEVEL_NAME);
+            $d->addres = $faker->address();
+            $d->email = $faker->email();
+            $d->website = $faker->url();
 
-            $degree = new Degree();
-            $degree->name = $faker->words(rand(5,10),true);
-            $degree->level = $faker->randomElement($levelName);
-            $degree->addres = $faker->address();
-            $degree->email = $faker->email();
-            $degree->website = $faker->url();
-
-            $degree->save();
-
-            
+            $d->save();
         }
     }
 }

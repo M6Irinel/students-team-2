@@ -18,6 +18,18 @@ class Student extends Model
     ];
 
 
+    public function degree()
+    {
+        return $this->belongTo('App\Degree');
+    }
+
+
+    public function exams()
+    {
+        return $this->belongsToMany('App\Exam');
+    }
+
+
     public static function validate_for_created($request)
     {
         return $request->validate([
@@ -33,7 +45,8 @@ class Student extends Model
     }
 
 
-    public static function validate_for_update($request, $rule_unique_ignore) {
+    public static function validate_for_update($request, $rule_unique_ignore)
+    {
         return $request->validate([
             'name' => 'required',
             'surname' => 'required',
@@ -44,9 +57,5 @@ class Student extends Model
             'registration_number' => ['required', $rule_unique_ignore],
             'telephone_number' => [$rule_unique_ignore],
         ]);
-    }
-
-    public function degree() {
-        return $this->belongTo('App\Degree');
     }
 }

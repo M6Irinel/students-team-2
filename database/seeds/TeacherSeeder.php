@@ -13,16 +13,15 @@ class TeacherSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        
-        for($i=0; $i<200; $i++){
+        for ($i = 0; $i < 50; $i++) {
             $t = new Teacher();
+
             $t->name = $faker->firstName();
             $t->surname = $faker->lastName();
             $t->email = $faker->email();
-            $t->telephone = $faker->numerify('+## ### #######');
+            $t->telephone = $faker->phoneNumber();
 
             $t->save();
         }
-
     }
 }

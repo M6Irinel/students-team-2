@@ -13,14 +13,13 @@ class CreateExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->date('date');
-            $table->string('hour');
-            $table->string('address');
-            $table->string('room');
+        Schema::create('exams', function (Blueprint $t) {
+            $t->id();
+            $t->date('date');
+            $t->string('hour');
+            $t->string('address');
+            $t->string('room');
+            $t->timestamps();
         });
     }
 

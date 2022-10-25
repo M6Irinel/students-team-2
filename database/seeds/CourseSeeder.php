@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Course;
 use App\Degree;
+use App\Teacher;
 
 class CourseSeeder extends Seeder
 {
@@ -17,22 +18,27 @@ class CourseSeeder extends Seeder
         $courses_name = Course::COURSE_NAME;
         $period = Course::PERIOD;
         $cfu = Course::CFU;
+
         $degrees = Degree::all()->pluck('id');
+        $teachers_id = Teacher::all()->pluck('id');
 
         foreach ($degrees as $degree) {
 
-            for ($i = 0; $i < 10; $i++) {
-                $n = new Course();
-    
-                $n->name = $faker->randomElement($courses_name);
-                $n->degree_id = $degree;
-                $n->description = $faker->optional()->paragraphs(rand(2, 4), true);
-                $n->period = $faker->randomElement($period);
-                $n->year = rand(1, 3);
-                $n->cfu = $faker->randomElement($cfu);
-                $n->website = $faker->url();
-    
-                $n->save();
+            for ($i = 0; $i < 5; $i++) {
+                $c = new Course();
+
+                $c->name = $faker->randomElement($courses_name);
+                $c->degree_id = $degree;
+                $c->description = $faker->optional()->paragraphs(rand(2, 4), true);
+                $c->period = $faker->randomElement($period);
+                $c->year = rand(1, 3);
+                $c->cfu = $faker->randomElement($cfu);
+                $c->website = $faker->url();
+
+                $c->save();
+
+                $teacherID = $teachers_id->shuffle()->take(3)->all();
+                $c->teachers()->sync($teacherID);
             }
         }
     }

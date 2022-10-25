@@ -15,7 +15,6 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $t) {
             $t->id();
-            $t->unsignedBigInteger('degree_id');
             $t->string('name');
             $t->text('description')->nullable();
             $t->string('period');
@@ -33,8 +32,6 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::table('courses', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('courses');
     }
 }

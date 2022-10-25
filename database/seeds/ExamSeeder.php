@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Exam;
 use Faker\Generator as Faker;
-use Faker\Factory as Factory;
 
 class ExamSeeder extends Seeder
 {
@@ -12,17 +11,17 @@ class ExamSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker, Factory $factory)
+    public function run(Faker $faker)
     {
-        for($i=0; $i<50; $i++){
-            $nE = new Exam();
-            $nE->name = $faker->asciify('********************');
-            $nE->date = $faker->date();
-            $nE->hour = $faker->time();
-            $nE->address = $faker->asciify('********************');
-            $nE->room = $faker->unique()->bothify('##');
+        for ($i = 0; $i < 5; $i++) {
+            $e = new Exam();
 
-            $nE->save();
+            $e->date = $faker->date();
+            $e->hour = $faker->time();
+            $e->address = $faker->address();
+            $e->room = $faker->unique()->bothify('##');
+
+            $e->save();
         }
     }
 }

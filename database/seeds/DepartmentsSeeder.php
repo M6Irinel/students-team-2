@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Department;
+use Faker\Generator as Faker;
 
 class DepartmentsSeeder extends Seeder
 {
@@ -10,26 +11,17 @@ class DepartmentsSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $departments = [
-            [
-               'name' => 'biologia',
-               'address' => 'via roma',
-               'phone' => '0624343461',
-               'email' => 'biologia@gmail.com', 
-            ]
-        ];
+        foreach (Department::DEPARTMENTS_NAME as $department) {
+            $d = new Department();
 
-        foreach ($departments as $department) {
-            $newdepartment = new Department ();
-            $newdepartment->name = $department ['name'];
-            $newdepartment->address = $department ['address'];
-            $newdepartment->phone = $department ['phone'];
-            $newdepartment->email = $department ['email'];
+            $d->name = $department;
+            $d->address = $faker->address();
+            $d->phone = $faker->phoneNumber();
+            $d->email = $faker->email();
 
-            $newdepartment-> save();
+            $d->save();
         }
-
     }
 }

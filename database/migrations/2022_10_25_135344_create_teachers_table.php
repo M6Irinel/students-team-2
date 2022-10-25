@@ -13,14 +13,13 @@ class CreateTeachersTable extends Migration
      */
     public function up()
     {
-        Schema::create('teachers', function (Blueprint $table) {
-            $table->id();
-            // $table->unsignedBigInteger('course_id');
-            $table->string('name');
-            $table->string('surname');
-            $table->string('email');
-            $table->string('telephone');
-            $table->timestamps();
+        Schema::create('teachers', function (Blueprint $t) {
+            $t->id();
+            $t->string('name');
+            $t->string('surname');
+            $t->string('email');
+            $t->string('telephone');
+            $t->timestamps();
         });
     }
 
